@@ -4,33 +4,42 @@
     <h1>My Cart</h1>
   </header>
 
-  <div class="panel panel-default items">
-    <table class="table table-bordered">
-      <thead>
-        <tr>
-          <th colspan="2">Product</th>
-          <th>Unit Price</th>
-          <th>Quantity</th>
-          <th>Price</th>
-        </tr>
-      </thead>
-      <tbody>
-        <% enhanced_cart.each do |item| %>
-          <%= render 'item', product: item[:product], quantity: item[:quantity].to_i %>
-        <% end %>
-      </tbody>
-      <tfoot>
-        <tr>
-          <th colspan="4">
-            TOTAL:
-          </th>
-          <th>
-            <%= humanized_money_with_symbol cart_subtotal_cents / 100.0 %>
-          </th>
-        </tr>
-      </tfoot>
-    </table>
-  </div>
+  <% if cart.empty? %>
+    <div id="testing_empyt">
+      <div class="alert alert-danger" role="alert">
+        Your cart is empty!
+      </div>
+        <button type="button" class="btn btn-primary"> 
+          <%= link_to 'Home', :root %>
+        </button>
+    <% else %>
+      <div class="panel panel-default items">
+        <table class="table table-bordered">
+          <thead>
+            <tr>
+              <th colspan="2">Product</th>
+              <th>Unit Price</th>
+              <th>Quantity</th>
+              <th>Price</th>
+            </tr>
+          </thead>
+          <tbody>
+            <% enhanced_cart.each do |item| %>
+              <%= render 'item', product: item[:product], quantity: item[:quantity].to_i %>
+            <% end %>
+          </tbody>
+          <tfoot>
+            <tr>
+              <th colspan="4">
+                TOTAL:
+              </th>
+              <th>
+                <%= humanized_money_with_symbol cart_subtotal_cents / 100.0 %>
+              </th>
+            </tr>
+          </tfoot>
+        </table>
+      </div>
 
   <div class="row">
     <div class="col-xs-12">
@@ -48,5 +57,6 @@
       <% end %>
     </div>
   </div>
+<% end %>
 
 </section>
