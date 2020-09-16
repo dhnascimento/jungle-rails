@@ -5,12 +5,12 @@
   </header>
 
   <% if cart.empty? %>
-    <div id="testing_empyt">
+    <div id="testing_empty">
       <div class="alert alert-danger" role="alert">
         Your cart is empty!
       </div>
         <button type="button" class="btn btn-primary"> 
-          <%= link_to 'Home', :root %>
+          <%= link_to 'Home', :root, {:class => "btn-primary"} %>
         </button>
     <% else %>
       <div class="panel panel-default items">

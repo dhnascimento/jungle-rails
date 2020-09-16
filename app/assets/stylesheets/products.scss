@@ -60,6 +60,16 @@ main section.categories-show {
         }
       }
 
+      .onsold {
+        position: relative;
+      }
+
+      .over-img {
+        position: absolute;
+        top: 0%;
+        left: 25%;
+      }
+
     }
   }
 }

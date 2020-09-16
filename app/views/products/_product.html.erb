@@ -1,8 +1,16 @@
 <article class="product">
   <header>
     <%= link_to product do %>
-      <%= image_tag product.image.thumb, alt: product.name %>
-      <h4><%= product.name %></h4>
+      <% if product.quantity != 0%>
+        <%= image_tag product.image.thumb, alt: product.name %>
+        <h4><%= product.name %></h4>
+      <% else %>
+        <div class="onsold">
+          <%= image_tag product.image.thumb, {alt: product.name} %>
+          <img src="https://ps.w.org/woo-out-of-stock-products/assets/icon-128x128.png?rev=1455657" class="over-img">
+          <h4><%= product.name %></h4>
+        </div>
+      <% end %>
     <% end %>
   </header>
   <p class="description">
