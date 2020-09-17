@@ -30,6 +30,13 @@ form.button_to {
   color: aliceblue;
 }
 
+.table thead {
+  background-color: #286090;
+  color: antiquewhite;
+  font-size: larger;
+}
+
 .table th {
-  text-align: center;   
+  text-align: center; 
+  font-size: large;  
 }
