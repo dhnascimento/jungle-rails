@@ -2,8 +2,63 @@ require 'rails_helper'
 
 RSpec.describe User, type: :model do
 
-    describe 'Password' do
-      it 'Should create a new user without errors' do
+    describe 'Create user - Form fields' do
+
+      it 'should not create a new user without a first name' do
+          @user = User.new(
+            first_name: "",
+            last_name: "Last",
+            email: "test@test.com",
+            password: "password",
+            password_confirmation: "password"
+          )
+          @user.save
+          expect(@user.errors.full_messages).to include("First name can't be blank")
+      end
+
+
+    it 'should not create a new user without a last name' do
+      @user = User.new(
+        first_name: "First",
+        last_name: "",
+        email: "test@test.com",
+        password: "password",
+        password_confirmation: "password"
+      )
+      @user.save
+      expect(@user.errors.full_messages).to include("Last name can't be blank")
+      end
+    end
+
+    describe 'Create user - Password' do
+
+      it 'should return an error message if trying to register with empty password' do
+        @user = User.new(
+          first_name: "First",
+          last_name: "Last",
+          email: "test@test.com",
+          password: "",
+          password_confirmation: "password"
+        )
+        @user.save
+
+        expect(@user.errors.full_messages).to include("Password can't be blank")
+      end
+
+      it 'should return an error message if trying to register with empty password confirmation' do
+        @user = User.new(
+          first_name: "First",
+          last_name: "Last",
+          email: "test@test.com",
+          password: "password",
+          password_confirmation: ""
+        )
+        @user.save
+
+        expect(@user.errors.full_messages).to include("Password confirmation can't be blank")
+      end
+
+      it 'should create a new user without errors' do
         @user = User.new(
           first_name: "First",
           last_name: "Last",
@@ -41,7 +96,21 @@ RSpec.describe User, type: :model do
 
     end
 
-    describe 'Email' do
+    describe 'Create user - Email' do
+
+      it 'should return an error if trying to register without an email' do
+        @user = User.new(
+          first_name: "First",
+          last_name: "Last",
+          email: "",
+          password: "password",
+          password_confirmation: "password"
+        )
+        @user.save
+
+        expect(@user.errors.full_messages).to include("Email can't be blank")
+      end
+
       it 'should return an error message if trying to register with an email already in the database (not case sensitive)' do
         @user = User.new(
           first_name: "First",
