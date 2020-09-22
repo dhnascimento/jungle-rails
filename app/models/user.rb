@@ -8,5 +8,23 @@ class User < ActiveRecord::Base
   validates :password, presence: true, length: { minimum: 5 }
   validates :password_confirmation, presence: true
 
+  def authenticate_with_credentials(email, password)
+    user = User.find_by_email(email.strip.downcase)
+    if user && user.authenticate(password)
+      user
+    else
+      nil
+    end
+  end
+
+
+
+  # def authentication(email, password)
+  #   user = User.find_by_email(email.strip)
+  #   # If the user exists AND the password entered is correct.
+  #   return user && user.authenticate(params[:password])
+  #     # Save the user id inside the browser cookie. This is how we keep the user 
+  #     # logged in when they navigate around our website.
+  # end
 
 end

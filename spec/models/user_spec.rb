@@ -155,7 +155,7 @@ RSpec.describe User, type: :model do
   end
 
   describe '.authenticate' do
-    it 'returns an instance of the user if authentication is successful' do
+    before [:each] do
       @user = User.new(
         first_name: "First",
         last_name: "Last",
@@ -164,45 +164,34 @@ RSpec.describe User, type: :model do
         password_confirmation: "password"
       )
       @user.save
-
-      expect(User.find_by_email("test@test.com")).to eq(@user)
-      expect(@user.authenticate("password")).to eq(@user)
     end
 
-    it 'returns false if authentication is not successful (wrong password)' do
-      @user = User.new(
-        first_name: "First",
-        last_name: "Last",
-        email: "test@test.com",
-        password: "password",
-        password_confirmation: "password"
-      )
-      @user.save
+      it 'returns an instance of the user if authentication is successful' do
 
-      expect(User.find_by_email("test@test.com")).to eq(@user)
-      expect(@user.authenticate("passwordo")).to be false
-    end
+        expect(@user.authenticate_with_credentials("test@test.com", "password")).to eq(@user)
+      end
 
-    it 'returns false if authentication is not successful (wrong email)' do
-      @user = User.new(
-        first_name: "First",
-        last_name: "Last",
-        email: "test@test.com",
-        password: "password",
-        password_confirmation: "password"
-      )
-      @user.save
+      it 'returns an instance of the user if authentication is successful (email with spaces after and before)' do
 
-      expect(User.find_by_email("testo@test.com")).to be nil
-      # expect(@user.authenticate("password")).to be false
-    end
+        expect(@user.authenticate_with_credentials("    test@test.com   ", "password")).to eq(@user)
+      end
+
+      it 'returns an instance of the user if authentication is successful (email not case sensitive)' do
+
+        expect(@user.authenticate_with_credentials("TesT@tEst.cOm", "password")).to eq(@user)
+      end
+
+      it 'returns nil if authentication is not successful (wrong password)' do
+
+        expect(@user.authenticate_with_credentials("test@test.com", "passwordo")).to be nil
+      end
+
+      it 'returns false if authentication is not successful (wrong email)' do
+
+        expect(@user.authenticate_with_credentials("testo@test.com", "password")).to be nil
+      end
 
   end
-
-      
-
-
-
 
 end
 
