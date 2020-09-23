@@ -4,14 +4,19 @@ class SessionsController < ApplicationController
   end
 
   def create
+    user = User.find_by_email(params[:email])
     if user = User.authenticate_with_credentials(params[:email], params[:password])
       puts user
       session[:username] = user.first_name
       session[:user_id] = user.id
       redirect_to '/'
     else
-    # If users' login doesn't work, send them back to the login form.
-      redirect_to '/login'
+      if params[:email].empty? || params[:password].empty?
+        flash[:blank] = "Please fill in all the fields"
+      else
+        flash[:error] = "Wrong Email or Password!"
+      end  
+        redirect_to '/login'
     end
   end
 
@@ -19,6 +24,7 @@ class SessionsController < ApplicationController
     session[:user_id] = nil
     redirect_to '/'
   end
-
+  
+  add_flash_types :error, :blank
 
 end

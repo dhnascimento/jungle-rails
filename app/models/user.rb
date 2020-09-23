@@ -22,14 +22,4 @@ class User < ActiveRecord::Base
     end
   end
 
-
-
-  # def authentication(email, password)
-  #   user = User.find_by_email(email.strip)
-  #   # If the user exists AND the password entered is correct.
-  #   return user && user.authenticate(params[:password])
-  #     # Save the user id inside the browser cookie. This is how we keep the user 
-  #     # logged in when they navigate around our website.
-  # end
-
 end
