@@ -168,27 +168,27 @@ RSpec.describe User, type: :model do
 
       it 'returns an instance of the user if authentication is successful' do
 
-        expect(@user.authenticate_with_credentials("test@test.com", "password")).to eq(@user)
+        expect(User.authenticate_with_credentials("test@test.com", "password")).to eq(@user)
       end
 
       it 'returns an instance of the user if authentication is successful (email with spaces after and before)' do
 
-        expect(@user.authenticate_with_credentials("    test@test.com   ", "password")).to eq(@user)
+        expect(User.authenticate_with_credentials("    test@test.com   ", "password")).to eq(@user)
       end
 
       it 'returns an instance of the user if authentication is successful (email not case sensitive)' do
 
-        expect(@user.authenticate_with_credentials("TesT@tEst.cOm", "password")).to eq(@user)
+        expect(User.authenticate_with_credentials("TesT@tEst.cOm", "password")).to eq(@user)
       end
 
       it 'returns nil if authentication is not successful (wrong password)' do
 
-        expect(@user.authenticate_with_credentials("test@test.com", "passwordo")).to be nil
+        expect(User.authenticate_with_credentials("test@test.com", "passwordo")).to be nil
       end
 
       it 'returns false if authentication is not successful (wrong email)' do
 
-        expect(@user.authenticate_with_credentials("testo@test.com", "password")).to be nil
+        expect(User.authenticate_with_credentials("testo@test.com", "password")).to be nil
       end
 
   end

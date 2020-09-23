@@ -12,8 +12,8 @@ Rails.application.routes.draw do
 
   resources :orders, only: [:create, :show]
   
-  get "/about" => "about#show"
-    
+  # get "/about" => "about#show"
+  resource :about, only: [:show]  
 
   namespace :admin do
     root to: 'dashboard#show'
@@ -21,6 +21,7 @@ Rails.application.routes.draw do
   end
 
     # these routes are for showing users a login form, logging them in, and logging them out.
+    
     get '/login' => 'sessions#new'
     post '/login' => 'sessions#create'
     get '/logout' => 'sessions#destroy'

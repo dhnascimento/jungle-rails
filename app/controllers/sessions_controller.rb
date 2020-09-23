@@ -4,9 +4,9 @@ class SessionsController < ApplicationController
   end
 
   def create
-    # If users' login work, send them to home page 
-    if user = User.authenticate_with_credentials(params[:email], params[:password]).
-      session[:username] = user.name
+    if user = User.authenticate_with_credentials(params[:email], params[:password])
+      puts user
+      session[:username] = user.first_name
       session[:user_id] = user.id
       redirect_to '/'
     else
@@ -19,5 +19,6 @@ class SessionsController < ApplicationController
     session[:user_id] = nil
     redirect_to '/'
   end
+
 
 end

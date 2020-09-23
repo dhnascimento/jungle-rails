@@ -20,6 +20,7 @@ RSpec.feature "Visitor navigates to product page", type: :feature, js: true do
       visit root_path
       save_screenshot("product_home_page.png")
       first(:link, 'Details').click
+      
       find('section.products-show')
       
       save_screenshot("product_product_page.png")
